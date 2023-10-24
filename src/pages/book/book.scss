@@ -1,0 +1,32 @@
+@import '../../styles/styles.scss';
+
+.book {
+    padding: 40px 50px;
+    @include border-radius(30px);
+    background: $light-color;
+
+    .book-container {
+        width: 1230px;
+        @include flexbox(flex, none, flex-start, column);
+        row-gap: 40px;
+
+        .book-intro {
+            @include flexbox(flex, none, flex-start, column);
+            row-gap: 10px;
+
+            .book-welcome {
+                span {
+                    @include typo(30px, 700, normal, $dark-color);
+                }
+    
+                span:last-child {
+                    color: $primary-color;
+                }
+            }
+            
+            p {
+                @include typo(18px, 500, normal, $dark-color);
+            }
+        }
+    }
+}
