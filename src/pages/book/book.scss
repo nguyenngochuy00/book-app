@@ -1,14 +1,17 @@
-@import '../../styles/styles.scss';
+@import "../../styles/styles.scss";
 
 .book {
     padding: 40px 50px;
     @include border-radius(30px);
     background: $light-color;
+    height: calc(100vh - 80px - 30px);
 
     .book-container {
         width: 1230px;
         @include flexbox(flex, none, flex-start, column);
         row-gap: 40px;
+        overflow: auto;
+        max-height: 100%;
 
         .book-intro {
             @include flexbox(flex, none, flex-start, column);
@@ -18,12 +21,12 @@
                 span {
                     @include typo(30px, 700, normal, $dark-color);
                 }
-    
+
                 span:last-child {
                     color: $primary-color;
                 }
             }
-            
+
             p {
                 @include typo(18px, 500, normal, $dark-color);
             }
@@ -48,7 +51,14 @@
     font-size: 16px !important;
     font-weight: 500 !important;
     color: $white-color !important;
-}   
+
+    @include transition();
+
+    &:hover {
+        opacity: 0.8;
+    }
+
+}
 
 .custom-cancel-button {
     padding: 12px 30px !important;

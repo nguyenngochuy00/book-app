@@ -36,6 +36,11 @@
                     @include border-radius(10px);
                     @include border(0, solid, transparent);
                     cursor: pointer;
+                    @include transition();
+
+                    &:hover {
+                        opacity: 0.8;
+                    }
 
                     &.btn-save {
                         padding: 12px 30px;

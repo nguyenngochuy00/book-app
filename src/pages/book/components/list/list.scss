@@ -75,6 +75,11 @@
                                 padding: 7px;
                                 @include border-radius(7px);
                                 cursor: pointer;
+                                @include transition();
+
+                                &:hover {
+                                    background: $light-color;
+                                }
                             }
                         }
                     }
