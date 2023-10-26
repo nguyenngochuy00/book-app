@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import FormGroup from '../../../../components/shared/form-group/FormGroup'
+import { APP_MESSAGES } from '../../../../constant/messages'
 import { Book } from '../../../../types/book.model'
 import './form.scss'
 
@@ -16,9 +17,7 @@ function Form(props: FormProps) {
   const [title, setTitle] = useState<string>('')
   const [author, setAuthor] = useState<string>('')
   const [price, setPrice] = useState<string>('')
-
   const [isEditMode, setIsEditMode] = useState(false); // Track edit mode
-
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
@@ -36,6 +35,7 @@ function Form(props: FormProps) {
     }
   }, [currentBook]);
 
+  // Handle click cancel button when edit mode to reset form
   const handleCancelClick = () => {
     setIsEditMode(false); // Exit edit mode
     setCode(''); // Reset form fields
@@ -44,6 +44,7 @@ function Form(props: FormProps) {
     setPrice('');
   };
 
+  // Handle clear error when typing keyboard 
   const handleInputChange = (field: string) => {
     // Clear the error for the specific field
     const updatedErrors = { ...errors };
@@ -51,21 +52,22 @@ function Form(props: FormProps) {
     setErrors(updatedErrors);
   };
 
+  // Handle submit form
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const validationErrors: { [key: string]: string } = {};
 
     if (!code.toString().trim()) {
-      validationErrors['code'] = 'This field is required.';
+      validationErrors['code'] = APP_MESSAGES.REQUIRED;
     }
     if (!title.toString().trim()) {
-      validationErrors['title'] = 'This field is required.';
+      validationErrors['title'] = APP_MESSAGES.REQUIRED;
     }
     if (!author.toString().trim()) {
-      validationErrors['author'] = 'This field is required.';
+      validationErrors['author'] = APP_MESSAGES.REQUIRED;
     }
     if (!price.toString().trim()) {
-      validationErrors['price'] = 'This field is required.';
+      validationErrors['price'] = APP_MESSAGES.REQUIRED;
     }
 
     setErrors(validationErrors);
@@ -76,14 +78,13 @@ function Form(props: FormProps) {
       } else {
         addBook(code, title, author, price);
       }
-
       setCode('');
       setTitle('');
       setAuthor('');
       setPrice('');
     }
   };
-  
+
   return (
     <>
       <div className='book-information'>
@@ -101,16 +102,13 @@ function Form(props: FormProps) {
                     editBook(e.target.value, title, author, price)
                   } else {
                     setCode(e.target.value)
-
                   }
                   handleInputChange('code')
-
                 }}
                 disabled={isEditMode}
-
                 error={errors['code']}
-
               />
+
               <FormGroup
                 labelName='Book Name *'
                 label='name'
@@ -123,10 +121,10 @@ function Form(props: FormProps) {
                     setTitle(e.target.value)
                   }
                   handleInputChange('title')
-
                 }}
                 error={errors['title']}
               />
+
               <FormGroup
                 labelName='Author *'
                 label='author'
@@ -137,14 +135,12 @@ function Form(props: FormProps) {
                     editBook(code, title, e.target.value, price)
                   } else {
                     setAuthor(e.target.value)
-
-
                   }
                   handleInputChange('author')
-
                 }}
                 error={errors['author']}
               />
+
               <FormGroup
                 labelName='Price *'
                 label='price'
@@ -155,10 +151,8 @@ function Form(props: FormProps) {
                     editBook(code, title, author, e.target.value)
                   } else {
                     setPrice(e.target.value)
-
                   }
                   handleInputChange('price')
-
                 }}
                 error={errors['price']}
               />

@@ -1,5 +1,3 @@
-import { on } from 'events';
-import { useState } from 'react';
 import './formGroup.scss';
 
 interface FormGroupProps {
@@ -8,11 +6,8 @@ interface FormGroupProps {
   type: string;
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-
   disabled?: boolean;
-
   error?: string
-
 }
 
 function FormGroup(props: FormGroupProps) {
