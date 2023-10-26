@@ -30,3 +30,33 @@
         }
     }
 }
+
+.custom-title {
+    @include typo(20px, 500, 30px, $black-color);
+}
+
+.custom-text {
+    @include typo(20px, 700, 30px, $black-color);
+}
+
+.custom-confirm-button {
+    padding: 12px 30px !important;
+    width: 114px !important;
+    height: 42px !important;
+    border-radius: 10px !important;
+    background: $primary-color !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: $white-color !important;
+}   
+
+.custom-cancel-button {
+    padding: 12px 30px !important;
+    width: 116px !important;
+    height: 42px !important;
+    border-radius: 10px !important;
+    background: $light-color !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    color: $dark-color !important;
+}

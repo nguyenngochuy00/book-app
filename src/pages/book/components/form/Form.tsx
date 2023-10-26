@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FormGroup from '../../../../components/shared/form-group/FormGroup'
 import { Book } from '../../../../types/book.model'
 import './form.scss'
@@ -17,35 +17,73 @@ function Form(props: FormProps) {
   const [author, setAuthor] = useState<string>('')
   const [price, setPrice] = useState<string>('')
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault()
+  const [isEditMode, setIsEditMode] = useState(false); // Track edit mode
+
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
+
+  useEffect(() => {
+    setIsEditMode(!!currentBook); // Set edit mode based on currentBook
     if (currentBook) {
-      finishEditBook()
-      if (code) {
-        setCode('')
-      }
-      if (title) {
-        setTitle('')
-      }
-      if (author) {
-        setAuthor('')
-      }
-      if (price) {
-        setPrice('')
-      }
+      setCode(currentBook.code);
+      setTitle(currentBook.title);
+      setAuthor(currentBook.author);
+      setPrice(currentBook.price);
     } else {
-      addBook(code, title, author, price)
-      setCode('')
-      setTitle('')
-      setAuthor('')
-      setPrice('')
+      setCode('');
+      setTitle('');
+      setAuthor('');
+      setPrice('');
     }
-  }
+  }, [currentBook]);
 
-  const handleButtonClick = (event: React.FormEvent<HTMLFormElement>) => {
-    handleSubmit(event)
-  }
+  const handleCancelClick = () => {
+    setIsEditMode(false); // Exit edit mode
+    setCode(''); // Reset form fields
+    setTitle('');
+    setAuthor('');
+    setPrice('');
+  };
 
+  const handleInputChange = (field: string) => {
+    // Clear the error for the specific field
+    const updatedErrors = { ...errors };
+    delete updatedErrors[field];
+    setErrors(updatedErrors);
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const validationErrors: { [key: string]: string } = {};
+
+    if (!code.toString().trim()) {
+      validationErrors['code'] = 'This field is required.';
+    }
+    if (!title.toString().trim()) {
+      validationErrors['title'] = 'This field is required.';
+    }
+    if (!author.toString().trim()) {
+      validationErrors['author'] = 'This field is required.';
+    }
+    if (!price.toString().trim()) {
+      validationErrors['price'] = 'This field is required.';
+    }
+
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
+      if (isEditMode) {
+        finishEditBook();
+      } else {
+        addBook(code, title, author, price);
+      }
+
+      setCode('');
+      setTitle('');
+      setAuthor('');
+      setPrice('');
+    }
+  };
+  
   return (
     <>
       <div className='book-information'>
@@ -57,60 +95,79 @@ function Form(props: FormProps) {
                 labelName='Book Code *'
                 label='code'
                 type='text'
-                value={currentBook ? currentBook.code : code}
+                value={code}
                 onChange={(e) => {
-                  if (currentBook) {
-                    editBook(e.target.value, currentBook.title, currentBook.author, currentBook.price)
+                  if (isEditMode) {
+                    editBook(e.target.value, title, author, price)
                   } else {
                     setCode(e.target.value)
+
                   }
+                  handleInputChange('code')
+
                 }}
+                disabled={isEditMode}
+
+                error={errors['code']}
+
               />
               <FormGroup
                 labelName='Book Name *'
                 label='name'
                 type='text'
-                value={currentBook ? currentBook.title : title}
+                value={title}
                 onChange={(e) => {
-                  if (currentBook) {
-                    editBook(currentBook.code, e.target.value, currentBook.author, currentBook.price)
+                  if (isEditMode) {
+                    editBook(code, e.target.value, author, price)
                   } else {
                     setTitle(e.target.value)
                   }
+                  handleInputChange('title')
+
                 }}
+                error={errors['title']}
               />
               <FormGroup
                 labelName='Author *'
                 label='author'
                 type='text'
-                value={currentBook ? currentBook.author : author}
+                value={author}
                 onChange={(e) => {
-                  if (currentBook) {
-                    editBook(currentBook.code, currentBook.title, e.target.value, currentBook.price)
+                  if (isEditMode) {
+                    editBook(code, title, e.target.value, price)
                   } else {
                     setAuthor(e.target.value)
+
+
                   }
+                  handleInputChange('author')
+
                 }}
+                error={errors['author']}
               />
               <FormGroup
                 labelName='Price *'
                 label='price'
                 type='text'
-                value={currentBook ? currentBook.price : price}
+                value={price}
                 onChange={(e) => {
-                  if (currentBook) {
-                    editBook(currentBook.code, currentBook.title, currentBook.author, e.target.value)
+                  if (isEditMode) {
+                    editBook(code, title, author, e.target.value)
                   } else {
                     setPrice(e.target.value)
+
                   }
+                  handleInputChange('price')
+
                 }}
+                error={errors['price']}
               />
             </div>
-            {/* <div className="btn-control"> */}
-            <button className='btn-save'>Save changes</button>
-            {/* </div> */}
+            <div className="btn-control">
+              <button className='btn-save' type='submit'>Save changes</button>
+              <button className={`btn-cancel ${!isEditMode ? 'btn-cancel-disabled' : ''}`} onClick={handleCancelClick} disabled={!isEditMode} >Cancel</button>
+            </div>
           </form>
-          <button className='btn-cancel'>Cancel</button>
         </div>
       </div>
     </>

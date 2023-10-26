@@ -15,5 +15,19 @@
         @include border(1px, solid, $secondary-color);
         background: $white-color;
         @include typo(16px, 400, 24px, $secondary-color);
+
+        &.is-invalid {
+            @include border(1px, solid, $primary-color);
+            margin-bottom: 5px;
+        }
+    
+        &.form-disabled {
+            background: $light-color;
+        }
+    
+    }
+
+    .invalid-feedback {
+        @include typo(12px, 400, 18px, $primary-color);
     }
 }

@@ -4,6 +4,9 @@ import './book.scss';
 import { useEffect, useState } from "react";
 import { Book } from "../../types/book.model";
 import axios from "axios";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import Swal from "sweetalert2";
 
 function Books() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -27,6 +30,12 @@ function Books() {
       price
     }
     setBooks((prev) => [...prev, book])
+
+    // Display a success toast notification
+    toast.success('Add book to list successfully!', {
+      position: 'top-right',
+      autoClose: 3000, // You can adjust the duration
+    });
   }
 
   // click edit button 
@@ -50,13 +59,60 @@ function Books() {
   function finishEditBook() {
     setBooks(prev => {
       return prev.map(book => {
-        if(book.id === (currentBook as Book).id) {
+        if (book.id === (currentBook as Book).id) {
           return currentBook as Book
         }
         return book
       })
     })
     setCurrentBook(null)
+
+    // Display a success toast notification
+    toast.success('Update book successfully!', {
+      position: 'top-right',
+      autoClose: 3000, // You can adjust the duration
+    });
+  }
+
+  function deleteBook(id: string) {
+    const bookToDelete = books.find((book) => book.id === id);
+
+    if(bookToDelete) {
+      const bookName = bookToDelete.title;
+
+      Swal.fire({
+        title: `<p class="custom-title">Do you want to delete</p><p class="custom-text">${bookName} ?</p>`,
+        showCancelButton: true,
+        confirmButtonText: 'Delete',
+        cancelButtonText: 'Cancel',
+        customClass: {
+          title: 'custom-title custom-text',
+          confirmButton: 'custom-confirm-button',
+          cancelButton: 'custom-cancel-button',
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          if (currentBook) {
+            setCurrentBook(null);
+          }
+          setBooks((prev) => {
+            const findIndexBook = prev.findIndex((book) => book.id === id);
+            if (findIndexBook > -1) {
+              const result = [...prev];
+              result.splice(findIndexBook, 1);
+              return result;
+            }
+            return prev;
+          });
+  
+          // Display a success toast notification
+          toast.success('Delete book successfully!', {
+            position: 'top-right',
+            autoClose: 3000, // You can adjust the duration
+          });
+        }
+      });
+    }
   }
 
   return (
@@ -70,7 +126,7 @@ function Books() {
             <p>Oct 19, 2023 | Thursday, 11:00 AM</p>
           </div>
           <Form addBook={addBook} currentBook={currentBook} editBook={editBook} finishEditBook={finishEditBook} />
-          <List books={books} startEditBook={startEditBook} />
+          <List books={books} startEditBook={startEditBook} deleteBook={deleteBook} />
         </div>
       </div>
     </>
