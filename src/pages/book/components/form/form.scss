@@ -10,9 +10,9 @@
         @include flexbox(flex, flex-start, flex-start, column);
         row-gap: 30px;
 
-        h2 {
-            @include typo(24px, 600, normal, $black-color);
-        }
+        // h2 {
+        //     @include typo(24px, 600, normal, $black-color);
+        // }
 
         form {
             @include flexbox(flex, flex-start, flex-start, column);
@@ -21,53 +21,49 @@
             .form {
                 @include flexbox(flex, flex-start, flex-start, row);
                 column-gap: 40px;
-
-                .error-message {
-                    
-                }
             }
 
             .btn-control {
                 @include flexbox(flex, flex-start, flex-start, row);
                 column-gap: 10px;
 
-                button {
-                    padding: 12px 30px;
-                    @include border-radius(10px);
-                    @include border(0, solid, transparent);
-                    cursor: pointer;
-                    @include transition();
+                // button {
+                //     padding: 12px 30px;
+                //     @include border-radius(10px);
+                //     @include border(0, solid, transparent);
+                //     cursor: pointer;
+                //     @include transition();
 
-                    &:hover {
-                        opacity: 0.8;
-                    }
+                //     &:hover {
+                //         opacity: 0.8;
+                //     }
 
-                    &.btn-save {
-                        padding: 12px 30px;
-                        @include border-radius(10px);
-                        @include border(0, solid, transparent);
-                        cursor: pointer;
-                        @include size(172px, 42px);
-                        background: $primary-color;
-                        @include typo(16px, 500, normal, $white-color);
-                    }
+                    // &.btn-save {
+                    //     padding: 12px 30px;
+                    //     @include border-radius(10px);
+                    //     @include border(0, solid, transparent);
+                    //     cursor: pointer;
+                    //     @include size(172px, 42px);
+                    //     background: $primary-color;
+                    //     @include typo(16px, 500, normal, $white-color);
+                    // }
 
-                    &.btn-cancel {
-                        padding: 12px 30px;
-                        @include border-radius(10px);
-                        @include border(0, solid, transparent);
-                        cursor: pointer;
-                        @include size(116px, 42px);
-                        opacity: 0.5;
-                        background: $light-color;
-                        @include typo(16px, 500, normal, $dark-color);
+                    // &.btn-cancel {
+                        // padding: 12px 30px;
+                        // @include border-radius(10px);
+                        // @include border(0, solid, transparent);
+                        // cursor: pointer;
+                        // @include size(116px, 42px);
+                        // opacity: 0.5;
+                        // background: $light-color;
+                        // @include typo(16px, 500, normal, $dark-color);
 
-                        &.btn-cancel-disabled {
-                            color: $secondary-color;
-                            cursor: auto;
-                        }
-                    }
-                }
+                        // &.btn-cancel-disabled {
+                        //     color: $secondary-color;
+                        //     cursor: auto;
+                        // }
+                    // }
+                // }
             }  
         }
     }

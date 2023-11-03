@@ -17,32 +17,37 @@
             @include flexbox(flex, none, flex-start, column);
             row-gap: 10px;
 
-            .book-welcome {
-                span {
-                    @include typo(30px, 700, normal, $dark-color);
-                }
+            // .book-welcome {
+                // span {
+                //     @include typo(30px, 700, normal, $dark-color);
+                // }
 
-                span:last-child {
-                    color: $primary-color;
-                }
-            }
+                // span:last-child {
+                //     color: $primary-color;
+                // }
+            // }
 
-            p {
-                @include typo(18px, 500, normal, $dark-color);
-            }
+            // p {
+            //     @include typo(18px, 500, normal, $dark-color);
+            // }
         }
     }
 }
 
 .custom-title {
+    font-family: $font-family;
     @include typo(20px, 500, 30px, $black-color);
 }
 
 .custom-text {
+    font-family: $font-family;
+
     @include typo(20px, 700, 30px, $black-color);
 }
 
 .custom-confirm-button {
+    font-family: $font-family;
+
     padding: 12px 30px !important;
     width: 114px !important;
     height: 42px !important;
@@ -57,10 +62,11 @@
     &:hover {
         opacity: 0.8;
     }
-
 }
 
 .custom-cancel-button {
+    font-family: $font-family;
+
     padding: 12px 30px !important;
     width: 116px !important;
     height: 42px !important;

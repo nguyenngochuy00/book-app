@@ -8,6 +8,9 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from "sweetalert2";
 import { APP_MESSAGES } from "../../constant/messages";
+import { Typography } from "@mui/material";
+import palette from "../../theme/palette";
+import typography from "../../theme/typography";
 
 function Books() {
   const [books, setBooks] = useState<Book[]>([]);
@@ -80,7 +83,7 @@ function Books() {
   function deleteBook(id: string) {
     const bookToDelete = books.find((book) => book.id === id);
 
-    if(bookToDelete) {
+    if (bookToDelete) {
       const bookName = bookToDelete.title;
 
       // Display delete comfirm notification
@@ -108,7 +111,7 @@ function Books() {
             }
             return prev;
           });
-  
+
           // Display a delete toast notification
           toast.success(APP_MESSAGES.DELETE_BOOK_SUCCESS, {
             position: 'top-right',
@@ -125,9 +128,22 @@ function Books() {
         <div className="book-container">
           <div className="book-intro">
             <div className="book-welcome">
-              <span>Welcome to My</span>&nbsp;<span>Bookstore!</span>
+              <Typography
+                variant="h1"
+                component={'span'}
+                color={palette.grey[900]}
+                fontFamily={typography.base.fontFamily}>Welcome to My</Typography>&nbsp;
+              <Typography
+                variant="h1"
+                component={'span'}
+                color={palette.primary.main}
+                fontFamily={typography.base.fontFamily}>Bookstore!</Typography>
             </div>
-            <p>Oct 19, 2023 | Thursday, 11:00 AM</p>
+            <Typography
+             variant="h3"
+             component={'h3'}
+             color={palette.grey[900]}
+             fontFamily={typography.base.fontFamily}>Oct 19, 2023 | Thursday, 11:00 AM</Typography>
           </div>
           <Form addBook={addBook} currentBook={currentBook} editBook={editBook} finishEditBook={finishEditBook} />
           <List books={books} startEditBook={startEditBook} deleteBook={deleteBook} />
@@ -138,3 +154,4 @@ function Books() {
 }
 
 export default Books
+

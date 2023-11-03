@@ -1,6 +1,9 @@
+import { Button, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import FormGroup from '../../../../components/shared/form-group/FormGroup'
 import { APP_MESSAGES } from '../../../../constant/messages'
+import palette from '../../../../theme/palette'
+import typography from '../../../../theme/typography'
 import { Book } from '../../../../types/book.model'
 import './form.scss'
 
@@ -89,7 +92,11 @@ function Form(props: FormProps) {
     <>
       <div className='book-information'>
         <div className='form-container'>
-          <h2>Book information</h2>
+          <Typography
+            variant='h2'
+            component={'h2'}
+            color={palette.grey[800]}
+            fontFamily={typography.base.fontFamily}>Book information</Typography>
           <form onSubmit={handleSubmit}>
             <div className='form'>
               <FormGroup
@@ -158,8 +165,8 @@ function Form(props: FormProps) {
               />
             </div>
             <div className="btn-control">
-              <button className='btn-save' type='submit'>Save changes</button>
-              <button className={`btn-cancel ${!isEditMode ? 'btn-cancel-disabled' : ''}`} onClick={handleCancelClick} disabled={!isEditMode} >Cancel</button>
+              <Button className='btn-save' type='submit'>Save changes</Button>
+              <Button className={`btn-cancel ${!isEditMode ? 'btn-cancel-disabled' : ''}`} onClick={handleCancelClick} disabled={!isEditMode} >Cancel</Button>
             </div>
           </form>
         </div>

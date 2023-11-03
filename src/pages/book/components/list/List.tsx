@@ -1,3 +1,7 @@
+import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material'
+import styled from 'styled-components'
+import palette from '../../../../theme/palette'
+import typography from '../../../../theme/typography'
 import { Book } from '../../../../types/book.model'
 import './list.scss'
 
@@ -7,6 +11,27 @@ interface ListProps {
   deleteBook: (id: string) => void
 }
 
+const TableCellHead = styled('th')({
+  fontFamily: typography.base.fontFamily,
+  fontSize: typography.base.fontSize,
+  fontWeight: typography.base.fontWeight, 
+  lineHeight: typography.base.lineHeight, 
+  color: palette.grey[400], 
+})
+
+const TableCellBody = styled('td')({
+  fontFamily: typography.base.fontFamily, 
+  fontSize: typography.base.fontSize,
+  fontWeight: typography.base.fontWeight,
+  lineHeight: 'normal',
+  color: palette.grey[800], 
+
+  '&:nth-child(2)': {
+    fontWeight: typography.h4.fontWeight,
+    color: palette.grey[900], 
+  }
+})
+
 function List(props: ListProps) {
   const { books, startEditBook, deleteBook } = props
 
@@ -14,34 +39,40 @@ function List(props: ListProps) {
     <>
       <div className="book-list">
         <div className="list-container">
-          <h2>Book List</h2>
-          <table>
-            <thead>
-              <tr>
-                <th>Book Code</th>
-                <th>Book Name</th>
-                <th>Author</th>
-                <th>Price</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {books.map((book) => (
-                <tr key={book.id}>
-                  <td>{book.code}</td>
-                  <td>{book.title}</td>
-                  <td>{book.author}</td>
-                  <td>${book.price}</td>
-                  <td>
-                    <div className="btn-action">
-                      <img src="/assets/svg/list/edit.svg" alt="edit" onClick={() => startEditBook(book.id)} />
-                      <img src="/assets/svg/list/trash-alt.svg" alt="trash-alt" onClick={() => deleteBook(book.id)} />
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <Typography
+            variant='h2'
+            component={'h2'}
+            color={palette.grey[800]}
+            fontFamily={typography.base.fontFamily}>Book List</Typography>
+          <TableContainer component={Paper}>
+            <Table >
+              <TableHead>
+                <TableRow>
+                  <TableCellHead>Book Code</TableCellHead>
+                  <TableCellHead>Book Name</TableCellHead>
+                  <TableCellHead>Author</TableCellHead>
+                  <TableCellHead>Price</TableCellHead>
+                  <TableCellHead>Action</TableCellHead>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {books.map((book) => (
+                  <TableRow key={book.id}>
+                    <TableCellBody>{book.code}</TableCellBody>
+                    <TableCellBody>{book.title}</TableCellBody>
+                    <TableCellBody>{book.author}</TableCellBody>
+                    <TableCellBody>${book.price}</TableCellBody>
+                    <td>
+                      <div className="btn-action">
+                        <img src="/assets/svg/list/edit.svg" alt="edit" onClick={() => startEditBook(book.id)} />
+                        <img src="/assets/svg/list/trash-alt.svg" alt="trash-alt" onClick={() => deleteBook(book.id)} />
+                      </div>
+                    </td>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
     </>

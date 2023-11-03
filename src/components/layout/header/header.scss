@@ -51,15 +51,15 @@ header {
                 @include flexbox(flex, center, center, row);
                 column-gap: 8px;
 
-                .header-nickname {
-                    span {
-                        @include typo(12px, 400, normal, $secondary-color);
-                    }
+                // .header-nickname {
+                    // span {
+                    //     @include typo(12px, 400, normal, $secondary-color);
+                    // }
 
-                    p {
-                        @include typo(16px, 600, normal, $dark-color);
-                    }
-                }
+                    // p {
+                    //     @include typo(16px, 600, normal, $dark-color);
+                    // }
+                // }
             }
         }
     }
