@@ -1,4 +1,3 @@
-
 import { ThemeProvider } from '@mui/material'
 import styled from 'styled-components'
 import './App.scss'
@@ -14,11 +13,11 @@ const StyledApp = styled('div')({
   fontWeight: typography.base.fontWeight,
   lineHeight: typography.base.lineHeight,
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: 'row'
 })
 
 const PanelRight = styled('div')({
-  padding: '0 30px 30px 0',
+  padding: '0 30px 30px 0'
 })
 
 function App() {

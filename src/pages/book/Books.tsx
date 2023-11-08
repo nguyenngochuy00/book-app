@@ -1,19 +1,19 @@
-import Form from "./components/form/Form"
-import List from "./components/list/List"
-import './book.scss';
-import { useEffect, useState } from "react";
-import { Book } from "../../types/book.model";
-import axios from "axios";
-import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import Swal from "sweetalert2";
-import { APP_MESSAGES } from "../../constant/messages";
-import { Typography } from "@mui/material";
-import palette from "../../theme/palette";
-import typography from "../../theme/typography";
+import Form from './components/form/Form'
+import List from './components/list/List'
+import './book.scss'
+import { useEffect, useState } from 'react'
+import { Book } from '../../types/book.model'
+import axios from 'axios'
+import { toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import Swal from 'sweetalert2'
+import { APP_MESSAGES } from '../../constant/messages'
+import { Box, Typography } from '@mui/material'
+import palette from '../../theme/palette'
+import typography from '../../theme/typography'
 
 function Books() {
-  const [books, setBooks] = useState<Book[]>([]);
+  const [books, setBooks] = useState<Book[]>([])
   const [currentBook, setCurrentBook] = useState<Book | null>(null)
 
   useEffect(() => {
@@ -39,13 +39,13 @@ function Books() {
     // Display a success toast notification
     toast.success(APP_MESSAGES.CREATE_BOOK_SUCCESS, {
       position: 'top-right',
-      autoClose: 3000, // You can adjust the duration
-    });
+      autoClose: 3000 // You can adjust the duration
+    })
   }
 
-  // Handle click edit button 
+  // Handle click edit button
   const startEditBook = (id: string) => {
-    const findedBook = books.find(book => book.id === id)
+    const findedBook = books.find((book) => book.id === id)
     if (findedBook) {
       setCurrentBook(findedBook)
     }
@@ -54,16 +54,15 @@ function Books() {
   // Handle type keyboard when edit mode
   const editBook = (code: string, title: string, author: string, price: string) => {
     setCurrentBook((prev) => {
-      if (prev)
-        return { ...prev, code, title, author, price };
+      if (prev) return { ...prev, code, title, author, price }
       return null
     })
   }
 
   // Handle click save button to update book
   function finishEditBook() {
-    setBooks(prev => {
-      return prev.map(book => {
+    setBooks((prev) => {
+      return prev.map((book) => {
         if (book.id === (currentBook as Book).id) {
           return currentBook as Book
         }
@@ -75,16 +74,16 @@ function Books() {
     // Display a update toast notification
     toast.success(APP_MESSAGES.UPDATE_BOOK_SUCCESS, {
       position: 'top-right',
-      autoClose: 3000, // You can adjust the duration
-    });
+      autoClose: 3000 // You can adjust the duration
+    })
   }
 
   // Handle delete book
   function deleteBook(id: string) {
-    const bookToDelete = books.find((book) => book.id === id);
+    const bookToDelete = books.find((book) => book.id === id)
 
     if (bookToDelete) {
-      const bookName = bookToDelete.title;
+      const bookName = bookToDelete.title
 
       // Display delete comfirm notification
       Swal.fire({
@@ -95,63 +94,90 @@ function Books() {
         customClass: {
           title: 'custom-title custom-text',
           confirmButton: 'custom-confirm-button',
-          cancelButton: 'custom-cancel-button',
+          cancelButton: 'custom-cancel-button'
         }
       }).then((result) => {
         if (result.isConfirmed) {
           if (currentBook) {
-            setCurrentBook(null);
+            setCurrentBook(null)
           }
           setBooks((prev) => {
-            const findIndexBook = prev.findIndex((book) => book.id === id);
+            const findIndexBook = prev.findIndex((book) => book.id === id)
             if (findIndexBook > -1) {
-              const result = [...prev];
-              result.splice(findIndexBook, 1);
-              return result;
+              const result = [...prev]
+              result.splice(findIndexBook, 1)
+              return result
             }
-            return prev;
-          });
+            return prev
+          })
 
           // Display a delete toast notification
           toast.success(APP_MESSAGES.DELETE_BOOK_SUCCESS, {
             position: 'top-right',
-            autoClose: 3000, // You can adjust the duration
-          });
+            autoClose: 3000 // You can adjust the duration
+          })
         }
-      });
+      })
     }
   }
 
   return (
     <>
-      <div className="book">
-        <div className="book-container">
-          <div className="book-intro">
-            <div className="book-welcome">
+      <Box
+        className={'book'}
+        sx={{
+          padding: '40px 50px',
+          borderRadius: '30px',
+          background: palette.grey[200],
+          height: 'calc(100vh - 80px - 30px)'
+        }}
+      >
+        <Box
+          className={'book-container'}
+          width={'1230px'}
+          display={'flex'}
+          alignItems={'flex-start'}
+          flexDirection={'column'}
+          rowGap={'40px'}
+          overflow={'auto'}
+          maxHeight={'100%'}
+        >
+          <Box
+            className={'book-intro'}
+            display={'flex'}
+            alignItems={'flex-start'}
+            flexDirection={'column'}
+            rowGap={'10px'}
+          >
+            <Box className={'book-welcome'}>
               <Typography
-                variant="h1"
+                variant='h1'
                 component={'span'}
                 color={palette.grey[900]}
-                fontFamily={typography.base.fontFamily}>Welcome to My</Typography>&nbsp;
+                fontFamily={typography.base.fontFamily}
+              >
+                Welcome to My
+              </Typography>
+              &nbsp;
               <Typography
-                variant="h1"
+                variant='h1'
                 component={'span'}
                 color={palette.primary.main}
-                fontFamily={typography.base.fontFamily}>Bookstore!</Typography>
-            </div>
-            <Typography
-             variant="h3"
-             component={'h3'}
-             color={palette.grey[900]}
-             fontFamily={typography.base.fontFamily}>Oct 19, 2023 | Thursday, 11:00 AM</Typography>
-          </div>
+                fontFamily={typography.base.fontFamily}
+              >
+                Bookstore!
+              </Typography>
+            </Box>
+            <Typography variant='h3' component={'h3'} color={palette.grey[900]} fontFamily={typography.base.fontFamily}>
+              Oct 19, 2023 | Thursday, 11:00 AM
+            </Typography>
+          </Box>
           <Form addBook={addBook} currentBook={currentBook} editBook={editBook} finishEditBook={finishEditBook} />
           <List books={books} startEditBook={startEditBook} deleteBook={deleteBook} />
-        </div>
-      </div>
+        </Box>
+      </Box>
     </>
   )
 }
 
 export default Books
-

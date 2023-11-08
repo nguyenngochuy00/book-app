@@ -1,33 +1,33 @@
-@import '../../../styles/styles.scss';
+// @import '../../../styles/styles.scss';
 
-.form-group {
-    @include flexbox(flex, flex-start, flex-start, column);
-    row-gap: 8px;
+// .form-group {
+//   @include flexbox(flex, flex-start, flex-start, column);
+//   row-gap: 8px;
 
-    // label {
-    //     @include typo(16px, 400, 24px, $dark-color);
-    // }
+//   // label {
+//   //     @include typo(16px, 400, 24px, $dark-color);
+//   // }
 
-    // .form-control {
-        // @include size(258px, 44px);
-        // padding: 10px 16px;
-        // @include border-radius(10px);
-        // @include border(1px, solid, $secondary-color);
-        // background: $white-color;
-        // @include typo(16px, 400, 24px, $secondary-color); 
+//   // .form-control {
+//   // @include size(258px, 44px);
+//   // padding: 10px 16px;
+//   // @include border-radius(10px);
+//   // @include border(1px, solid, $secondary-color);
+//   // background: $white-color;
+//   // @include typo(16px, 400, 24px, $secondary-color);
 
-        // &.is-invalid {
-        //     @include border(1px, solid, $primary-color);
-        //     margin-bottom: 5px;
-        // }
-    
-        // &.form-disabled {
-        //     background: $light-color;
-        // }
-    
-    // }
+//   // &.is-invalid {
+//   //     @include border(1px, solid, $primary-color);
+//   //     margin-bottom: 5px;
+//   // }
 
-    // .invalid-feedback {
-    //     @include typo(12px, 400, 18px, $primary-color);
-    // }
-}
+//   // &.form-disabled {
+//   //     background: $light-color;
+//   // }
+
+//   // }
+
+//   // .invalid-feedback {
+//   //     @include typo(12px, 400, 18px, $primary-color);
+//   // }
+// }
